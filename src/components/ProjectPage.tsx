@@ -8,7 +8,7 @@ import { EmojiButton } from './EmojiButton';
 import { Icon } from './Icon';
 import { Topbar } from './Topbar';
 
-export function ProjectPage({ id, onMenu }: { id: string; onMenu: () => void }) {
+export function ProjectPage({ id }: { id: string }) {
   const project = useLiveQuery(() => db.projects.get(id).then((p) => (p && !p.deleted ? p : null)), [id]);
   const notes = (useNotes() ?? []).filter((n) => n.projectId === id);
   const [params, setParams] = useSearchParams();
@@ -19,7 +19,7 @@ export function ProjectPage({ id, onMenu }: { id: string; onMenu: () => void }) 
   if (project === null)
     return (
       <>
-        <Topbar crumbs={['Projects']} onMenu={onMenu} />
+        <Topbar crumbs={['Projects']} back="/browse" />
         <p className="muted pad">This project doesn't exist.</p>
       </>
     );
@@ -31,7 +31,7 @@ export function ProjectPage({ id, onMenu }: { id: string; onMenu: () => void }) 
 
   return (
     <>
-      <Topbar crumbs={[`${project.emoji} ${project.name || 'Untitled'}`]} onMenu={onMenu}>
+      <Topbar crumbs={[`${project.emoji} ${project.name || 'Untitled'}`]} back="/browse">
         <button
           className="icon-btn"
           aria-label="Delete project"

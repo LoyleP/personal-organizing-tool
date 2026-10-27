@@ -12,6 +12,15 @@ export async function create<K extends Kind>(kind: K, fields: Fields<RowOf<K>>):
   return row;
 }
 
+/** New empty task at the top of To do, ready to be named in the task panel. */
+export async function newTask(projectId: string | null) {
+  const todo = await db.tasks.filter((t) => !t.deleted && t.status === 'todo').toArray();
+  const order = todo.reduce((m, t) => Math.min(m, t.order), 1) - 1;
+  return create('task', { title: '', status: 'todo', priority: null, due: null, tags: [], projectId, body: null, order });
+}
+
+export const newNote = (projectId: string | null) => create('note', { title: '', emoji: '📄', projectId, body: null });
+
 export async function patch<K extends Kind>(kind: K, id: string, changes: Partial<Fields<RowOf<K>>>) {
   await (tables[kind] as any).update(id, { ...changes, updatedAt: Date.now(), dirty: 1 });
   scheduleSync();

@@ -18,6 +18,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { STATUSES, type Project, type Status, type Task } from '../db';
 import { between, create, patch, today, useProjects, useTasks } from '../store';
 import { Icon } from './Icon';
+import { TaskList } from './TaskList';
+import { useMobile } from '../useMobile';
 
 const shortDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
@@ -194,8 +196,25 @@ export function Board({ projectId }: { projectId?: string }) {
 
   const open = (id: string) => setParams({ t: id });
   const active = activeId ? byId.get(activeId) : undefined;
+  const mobile = useMobile();
 
   if (!tasks) return null;
+  if (mobile)
+    return (
+      <div className="board-wrap">
+        {projectId === undefined && (
+          <div className="board-head">
+            <h1 className="page-title">Tasks</h1>
+          </div>
+        )}
+        <TaskList
+          columns={columns}
+          projectId={scope}
+          projects={projectId === undefined ? projectMap : undefined}
+          onOpen={open}
+        />
+      </div>
+    );
   return (
     <div className="board-wrap">
       {projectId === undefined && (

@@ -1,12 +1,16 @@
 import type { ReactNode } from 'react';
+import { Link } from 'wouter';
 import { Icon } from './Icon';
 
-export function Topbar({ crumbs, onMenu, children }: { crumbs: ReactNode[]; onMenu: () => void; children?: ReactNode }) {
+/** Breadcrumbs on desktop; on phones a round back button plus round actions, Linear-style. */
+export function Topbar({ crumbs, back, children }: { crumbs: ReactNode[]; back?: string; children?: ReactNode }) {
   return (
     <header className="topbar">
-      <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Open sidebar">
-        <Icon name="menu" />
-      </button>
+      {back && (
+        <Link href={back} className="icon-btn back-btn" aria-label="Back">
+          <Icon name="left" />
+        </Link>
+      )}
       <nav className="crumbs">
         {crumbs.map((c, i) => (
           <span key={i}>
