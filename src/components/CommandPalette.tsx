@@ -40,7 +40,6 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
         run: async () => navigate(`/n/${(await create('note', { title: q, emoji: '📄', projectId: null, body: null })).id}`),
       },
       { id: 'go-tasks', label: 'Tasks', hint: 'Go to', icon: 'board', run: go('/') },
-      { id: 'go-cal', label: 'Calendar', hint: 'Go to', icon: 'calendar', run: go('/calendar') },
     ];
     const all: Item[] = [
       ...projects.map((p) => ({ id: p.id, label: p.name || 'Untitled', hint: 'Project', icon: p.emoji, run: go(`/p/${p.id}`) })),

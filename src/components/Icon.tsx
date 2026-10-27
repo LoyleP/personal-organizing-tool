@@ -1,12 +1,9 @@
 const paths = {
   board: 'M3 4h4v12H3zM8 4h4v8H8zM13 4h4v5h-4z',
-  calendar: 'M4 5h12v11H4zM4 8h12M7 3v3M13 3v3',
   note: 'M5 3h7l3 3v11H5zM12 3v3h3M8 10h5M8 13h5',
   search: 'M9 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM13 13l4 4',
   plus: 'M10 4v12M4 10h12',
   chevron: 'M8 6l4 4-4 4',
-  left: 'M12 5l-5 5 5 5',
-  right: 'M8 5l5 5-5 5',
   close: 'M5 5l10 10M15 5L5 15',
   menu: 'M3 6h14M3 10h14M3 14h14',
   trash: 'M4 6h12M8 6V4h4v2M6 6l1 11h6l1-11',

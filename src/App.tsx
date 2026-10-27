@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Switch, useLocation, useSearchParams } from 'wouter';
 import { Sidebar } from './components/Sidebar';
 import { Board } from './components/Board';
@@ -8,8 +8,6 @@ import { ProjectPage } from './components/ProjectPage';
 import { CommandPalette } from './components/CommandPalette';
 import { create, useTasks } from './store';
 import { Topbar } from './components/Topbar';
-
-const CalendarView = lazy(() => import('./components/CalendarView'));
 
 const isTyping = (el: EventTarget | null) =>
   el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
@@ -59,12 +57,6 @@ export function App() {
           <Route path="/">
             <Topbar crumbs={['Tasks']} onMenu={() => setNavOpen(true)} />
             <Board />
-          </Route>
-          <Route path="/calendar">
-            <Topbar crumbs={['Calendar']} onMenu={() => setNavOpen(true)} />
-            <Suspense fallback={null}>
-              <CalendarView />
-            </Suspense>
           </Route>
           <Route path="/p/:id">{({ id }) => <ProjectPage id={id} onMenu={() => setNavOpen(true)} />}</Route>
           <Route path="/n/:id">{({ id }) => <NotePage key={id} id={id} onMenu={() => setNavOpen(true)} />}</Route>

@@ -63,10 +63,6 @@ export function Sidebar({ onSearch }: { onSearch: () => void }) {
           <Icon name="board" />
           <span>Tasks</span>
         </Link>
-        <Link href="/calendar" className={`nav-item ${location === '/calendar' ? 'active' : ''}`}>
-          <Icon name="calendar" />
-          <span>Calendar</span>
-        </Link>
 
         <div className="nav-section">
           <span>Projects</span>
